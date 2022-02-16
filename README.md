@@ -1,4 +1,8 @@
 #Access EC2 instance via ssm and access rdp in local machine.
+
+
+
+
 create iam ec2-ssm role
 attach this two policies
 
