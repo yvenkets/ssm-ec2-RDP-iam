@@ -1,0 +1,29 @@
+How do I create VPC endpoints so that I can use Systems Manager to manage private EC2 instances without internet access?
+Last updated: 2021-06-02
+
+My Amazon Elastic Compute Cloud (Amazon EC2) instance doesn't have internet access. How can I manage my instance using AWS Systems Manager?
+
+Resolution
+Amazon EC2 instances must be registered as managed instances to be managed with AWS Systems Manager. Follow these steps:
+
+Verify that SSM Agent is installed on the instance.
+Create an AWS Identity and Access Management (IAM) instance profile for Systems Manager. You can create a new role, or add the needed permissions to an existing role.
+Attach the IAM role to your private EC2 instance.
+Open the Amazon EC2 console, and then select your instance. On the Description tab, note the VPC ID and Subnet ID.
+Create a VPC endpoint for Systems Manager.
+For Service Name, select com.amazonaws.[region].ssm (for example, com.amazonaws.us-east-1.ssm). For a full list of Region codes, see Available Regions.
+For VPC, choose the VPC ID for your instance.
+For Subnets, choose a Subnet ID in your VPC. For high availability, choose at least two subnets from different Availability Zones within the Region.
+Note: If you have more than one subnet in the same Availability Zone, you don't need to create VPC endpoints for the extra subnets. Any other subnets within the same Availability Zone can access and use the interface.
+For Enable DNS name, select Enable for this endpoint. For more information, see Private DNS for interface endpoints.
+For Security group, select an existing security group, or create a new one. The security group must allow inbound HTTPS (port 443) traffic from the resources in your VPC that communicate with the service.
+If you created a new security group, open the VPC console, choose Security Groups, and then select the new security group. On the Inbound rules tab, choose Edit inbound rules. Add a rule with the following details, and then choose Save rules:
+For Type, choose HTTPS.
+For Source, choose your VPC CIDR. For advanced configuration, you can allow specific subnets' CIDR used by your EC2 instances.
+Note the Security group ID. You'll use this ID with the other endpoints.
+Optional: For advanced setup, create policies for VPC interface endpoints for AWS Systems Manager.
+Repeat step 5 with the following change:
+For Service Name, select com.amazonaws.[region].ec2messages.
+Repeat step 5 with the following change:
+For Service Name, select com.amazonaws.[region].ssmmessages. You must do this if you want to use Session Manager.
+After the three endpoints are created, your instance appears in Managed Instances, and can be managed using Systems Manager.
