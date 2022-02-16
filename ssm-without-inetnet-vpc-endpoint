@@ -1,5 +1,6 @@
 How do I create VPC endpoints so that I can use Systems Manager to manage private EC2 instances without internet access?
-Last updated: 2021-06-02
+
+https://aws.amazon.com/premiumsupport/knowledge-center/ec2-systems-manager-vpc-endpoints/
 
 My Amazon Elastic Compute Cloud (Amazon EC2) instance doesn't have internet access. How can I manage my instance using AWS Systems Manager?
 
