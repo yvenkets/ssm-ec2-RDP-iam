@@ -1,6 +1,6 @@
 #Access EC2 instance via ssm and access rdp in local machine.
 
-
+https://aws.amazon.com/premiumsupport/knowledge-center/ec2-systems-manager-vpc-endpoints/
 
 
 create iam ec2-ssm role
